@@ -1,13 +1,11 @@
 package com.example.kafka.controller;
 
+import com.example.kafka.dto.Customer;
 import com.example.kafka.service.KafkaMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping ("/producer-app")
@@ -28,5 +26,10 @@ public class EventController {
                     .build();
         }
 
+    }
+
+    @PostMapping("/publish")
+    public void sendEvents(@RequestBody Customer customer) {
+        publisher.sendEventsToTopic(customer);
     }
 }
